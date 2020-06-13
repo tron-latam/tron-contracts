@@ -1,4 +1,4 @@
-pragma solidity ^0.4.23;
+pragma solidity >=0.5 <=0.5.10;
 
 /**
  * @title TRC20 interface (compatible with ERC20 interface)

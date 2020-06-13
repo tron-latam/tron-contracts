@@ -1,5 +1,5 @@
 
-pragma solidity ^0.4.23;
+pragma solidity >=0.5 <=0.5.10;
 
 import "./../tokens/TRC20/TRC20.sol";
 import "./../ownership/Ownable.sol";
