@@ -1,7 +1,7 @@
 pragma solidity >=0.5 <=0.5.10;
 
 import "./ITRC20.sol";
-import "../../utils/SafeMath.sol";
+import "../../utils/math/SafeMath.sol";
 
 /**
  * @title Standard TRC20 token (compatible with ERC20 token)

@@ -8,7 +8,8 @@
   "scripts": {
     "test": "tronbox test",
     "pretest": "npm run migrate",
-    "migrate": "tronbox migrate --reset"
+    "migrate": "tronbox migrate --reset",
+    "compile": "tronbox compile --compile-all"
   },
   "dependencies": {
     "bignumber.js": "^9.0.0",
