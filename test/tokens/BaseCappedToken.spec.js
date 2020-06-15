@@ -13,7 +13,7 @@ contract('BaseCappedToken', (accounts) => {
   let token
   before(async () => {
     token = await BaseCappedTokenMock.deployed()
-    wait(3)
+    await wait(3000)
     if (accounts.length < 3) {
       // Set your own accounts if you are not using Tron Quickstart
     }
@@ -47,7 +47,7 @@ contract('BaseCappedToken', (accounts) => {
 
   it('should verifies the balances after a transfer', async () => {
     await token.transfer(accounts[1], 500 * TOKEN_UNIT)
-    wait(3)
+    await wait(3000)
     const balanceAcc0 = await token.balanceOf(accounts[0])
     assert.equal(balanceAcc0.toString(), 19999999500000000)
 
@@ -59,7 +59,7 @@ contract('BaseCappedToken', (accounts) => {
     return new Promise(async (resolve, reject) => {
       try {
         const _token = await tronWeb.contract().at(token.address)
-        wait(3)
+        await wait(3000)
         const watcher = await _token.Transfer().watch((err, res) => {
           if (err) throw err
           if (res) {
@@ -81,7 +81,7 @@ contract('BaseCappedToken', (accounts) => {
 
   it('should verifies the allowance after an approval', async () => {
     await token.approve(accounts[1], 500 * TOKEN_UNIT)
-    wait(3)
+    await wait(3000)
     let allowance = await token.allowance.call(accounts[0], accounts[1])
     assert.equal(allowance, 500 * TOKEN_UNIT)
   })
@@ -90,7 +90,7 @@ contract('BaseCappedToken', (accounts) => {
     return new Promise(async (resolve, reject) => {
       try {
         const _token = await tronWeb.contract().at(token.address)
-        wait(3)
+        await wait(3000)
         const watcher = await _token.Approval().watch((err, res) => {
           if (err) throw err
           if (res) {
@@ -112,9 +112,9 @@ contract('BaseCappedToken', (accounts) => {
 
   it('should verifies the balances after transferring from another account', async () => {
     await token.approve(accounts[1], 500 * TOKEN_UNIT)
-    wait(3)
+    await wait(3000)
     await token.transferFrom(accounts[0], accounts[2], 50 * TOKEN_UNIT, { from: accounts[1] })
-    wait(3)
+    await wait(3000)
     let balance = await token.balanceOf(accounts[0])
     assert.equal(balance.toString(), 19999998950000000)
 
@@ -129,7 +129,7 @@ contract('BaseCappedToken', (accounts) => {
     return new Promise(async (resolve, reject) => {
       try {
         const _token = await tronWeb.contract().at(token.address)
-        wait(3)
+        await wait(3000)
         const watcher = await _token.Transfer().watch((err, res) => {
           if (err) throw err
           if (res) {
@@ -143,7 +143,7 @@ contract('BaseCappedToken', (accounts) => {
         })
 
         await token.approve(accounts[1], 500 * TOKEN_UNIT)
-        wait(3)
+        await wait(3000)
         await token.transferFrom(accounts[0], accounts[2], 50 * TOKEN_UNIT, { from: accounts[1] })
       } catch (e) {
         reject(e)
@@ -153,9 +153,9 @@ contract('BaseCappedToken', (accounts) => {
 
   it('should verifies the new allowance after transferring from another account', async () => {
     await token.approve(accounts[1], 500 * TOKEN_UNIT)
-    wait(3)
+    await wait(3000)
     await token.transferFrom(accounts[0], accounts[2], 50 * TOKEN_UNIT, { from: accounts[1] })
-    wait(3)
+    await wait(3000)
     let allowance = await token.allowance.call(accounts[0], accounts[1])
     assert.equal(allowance, 450 * TOKEN_UNIT)
   })
@@ -163,7 +163,7 @@ contract('BaseCappedToken', (accounts) => {
   it('should throw when attempting to transfer from another account more than the allowance', async () => {
     try {
       await token.approve(accounts[1], 100 * TOKEN_UNIT)
-      wait(3)
+      await wait(3000)
       await token.transferFrom(accounts[0], accounts[2], 200 * TOKEN_UNIT, { from: accounts[1] })
       assert(false, "didn't throw attempting to transfer from another account more than the allowance")
     } catch (error) {
@@ -201,7 +201,7 @@ contract('BaseCappedToken', (accounts) => {
   it('should throw when attempting to transfer from an invalid account', async () => {
     try {
       await token.approve(accounts[1], 100)
-      wait(3)
+      await wait(3000)
       await token.transferFrom(INVALID_ADDRESS, accounts[2], 50, { from: accounts[1] })
       assert(false, "didn't throw when attempting to transfer from an invalid account")
     } catch (error) {
@@ -212,7 +212,7 @@ contract('BaseCappedToken', (accounts) => {
   it('should throw when attempting to transfer from to an invalid account', async () => {
     try {
       await token.approve(accounts[1], 100)
-      wait(3)
+      await wait(3000)
       await token.transferFrom(accounts[0], INVALID_ADDRESS, 50, { from: accounts[1] })
       assert(false, "didn't throw when attempting to transfer from to an invalid account")
     } catch (error) {
@@ -241,7 +241,7 @@ contract('BaseCappedToken', (accounts) => {
         assert.equal(isOwner, false)
 
         const _token = await tronWeb.contract().at(token.address)
-        wait(3)
+        await wait(3000)
         const watcher = await _token.OwnershipTransferred().watch(async (err, res) => {
           if (err) throw err
           if (res) {
@@ -256,7 +256,7 @@ contract('BaseCappedToken', (accounts) => {
         })
 
         await token.transferOwnership(accounts[3], { from: accounts[0] })
-        wait(3)
+        await wait(3000)
         const isNewOwner = await token.isOwner({ from: accounts[3] })
         assert.equal(isNewOwner, true)
       } catch (e) {
@@ -293,7 +293,7 @@ contract('BaseCappedToken', (accounts) => {
         assert.equal(isOwner2, true)
 
         const _token = await tronWeb.contract().at(token.address)
-        wait(3)
+        await wait(3000)
         const watcher = await _token.OwnershipTransferred().watch(async (err, res) => {
           if (err) throw err
           if (res) {
@@ -308,7 +308,7 @@ contract('BaseCappedToken', (accounts) => {
         })
 
         await token.renounceOwnership({ from: accounts[3] })
-        wait(3)
+        await wait(3000)
         const isOwner3 = await token.isOwner({ from: accounts[3] })
         assert.equal(isOwner3, false)
       } catch (e) {

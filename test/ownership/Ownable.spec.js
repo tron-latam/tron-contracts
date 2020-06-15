@@ -7,7 +7,7 @@ contract('Ownable', (accounts) => {
   let token
   before(async () => {
     token = await OwnableMock.deployed()
-    wait(3)
+    await wait(3000)
     if (accounts.length < 3) {
       // Set your own accounts if you are not using Tron Quickstart
     }
@@ -25,7 +25,7 @@ contract('Ownable', (accounts) => {
         assert.equal(isOwner, false)
 
         const _token = await tronWeb.contract().at(token.address)
-        wait(3)
+        await wait(3000)
         const watcher = await _token.OwnershipTransferred().watch(async (err, res) => {
           if (err) throw err
           if (res) {
@@ -40,7 +40,7 @@ contract('Ownable', (accounts) => {
         })
 
         await token.transferOwnership(accounts[3], { from: accounts[0] })
-        wait(3)
+        await wait(3000)
         const isNewOwner = await token.isOwner({ from: accounts[3] })
         assert.equal(isNewOwner, true)
       } catch (e) {
@@ -77,7 +77,7 @@ contract('Ownable', (accounts) => {
         assert.equal(isOwner2, true)
 
         const _token = await tronWeb.contract().at(token.address)
-        wait(3)
+        await wait(3000)
         const watcher = await _token.OwnershipTransferred().watch(async (err, res) => {
           if (err) throw err
           if (res) {
@@ -92,7 +92,7 @@ contract('Ownable', (accounts) => {
         })
 
         await token.renounceOwnership({ from: accounts[3] })
-        wait(3)
+        await wait(3000)
         const isOwner3 = await token.isOwner({ from: accounts[3] })
         assert.equal(isOwner3, false)
 

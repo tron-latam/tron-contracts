@@ -1,6 +1,7 @@
 {
-  "name": "tron-contracts",
-  "version": "1.0.2",
+  "name": "@tron-latam/tron-contracts",
+  "repository": "git://github.com/tron-latam/tron-contracts.git",
+  "version": "1.0.3",
   "description": "",
   "directories": {
     "test": "test"
@@ -11,9 +12,6 @@
     "migrate": "tronbox migrate --reset"
   },
   "dependencies": {
-    "bignumber.js": "^9.0.0",
-    "chalk": "^4.1.0",
-    "sleep": "^6.2.0",
     "tronbox": "^2.7.13",
     "tronweb": "^2.10.2"
   },
@@ -32,5 +30,8 @@
       "email": "w.evans@tron.network"
     }
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  }
 }
